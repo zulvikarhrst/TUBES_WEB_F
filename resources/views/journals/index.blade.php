@@ -1,27 +1,3 @@
-{{--@extends('layouts.app')--}}
-
-{{--@section('content')--}}
-{{--<div class="container">--}}
-{{--    <div class="row justify-content-center">--}}
-{{--        <div class="col-md-8">--}}
-{{--            <div class="card">--}}
-{{--                <div class="card-header">{{ __('Dashboard') }}</div>--}}
-
-{{--                <div class="card-body">--}}
-{{--                    @if (session('status'))--}}
-{{--                        <div class="alert alert-success" role="alert">--}}
-{{--                            {{ session('status') }}--}}
-{{--                        </div>--}}
-{{--                    @endif--}}
-
-{{--                    {{ __('You are logged in!') }}--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</div>--}}
-{{--@endsection--}}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,32 +27,53 @@
             margin-top: 4rem;
         }
 
-        .menu {
-            width: 10rem;
-            height: 10rem;
-            background-color: #fff;
-            border-radius: 1rem;
-        }
-
-        .icon {
-            width: 6rem;
-            height: 6rem;
-        }
-
         #btnLogout {
             border-radius: 8px;
         }
-        .menuCard {
-            color: #56b9b3; /* Set the text color for card body */
 
+        #table-container {
+            background-color: white;
+            width: 90vw;
+            border-radius: 16px;
         }
 
-
+        .table-title {
+            color: #56b9b3;
+        }
     </style>
 
     <title>JurnalKu</title>
 </head>
 <body>
+{{--<nav class="navbar navbar-expand-lg navbar-light px-4">--}}
+{{--    <div class="container-fluid">--}}
+{{--        <a class="navbar-brand fw-bold text-light" href="#">JurnalKu</a>--}}
+{{--        <button--}}
+{{--            class="navbar-toggler"--}}
+{{--            type="button"--}}
+{{--            data-bs-toggle="collapse"--}}
+{{--            data-bs-target="#navbarNavAltMarkup"--}}
+{{--            aria-controls="navbarNavAltMarkup"--}}
+{{--            aria-expanded="false"--}}
+{{--            aria-label="Toggle navigation"--}}
+{{--        >--}}
+{{--            <span class="navbar-toggler-icon"></span>--}}
+{{--        </button>--}}
+{{--        <div--}}
+{{--            class="collapse navbar-collapse justify-content-center"--}}
+{{--            id="navbarNavAltMarkup"--}}
+{{--        >--}}
+{{--            <div class="navbar-nav">--}}
+{{--                <a class="nav-link text-light" href="#">Home</a>--}}
+{{--                <a class="nav-link text-light" href="#">Book</a>--}}
+{{--                <a class="nav-link text-light" href="#">Journal</a>--}}
+{{--                <a class="nav-link text-light" href="#">Article</a>--}}
+{{--                <a class="nav-link text-light" href="#">Dashboard</a>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--        <button id="btnLogout" class="btn btn-danger px-3">Logout</button>--}}
+{{--    </div>--}}
+{{--</nav>--}}
 <nav class="navbar navbar-expand-lg navbar-light px-4">
     <div class="container-fluid">
         <a class="navbar-brand fw-bold text-light" href="#">JurnalKu</a>
@@ -149,48 +146,47 @@
     </div>
 </nav>
 
-<div id="content" class="d-flex flex-column">
-    <h1 id="pageTitle" class="fw-bold text-center">Welcome to JurnalKu</h1>
-    <div class="d-flex flex-row justify-content-center mt-4">
-        <a class="menuCard" href="{{ route('books.index') }}">
-
-        <div
-            id="menu1"
-            class="menu mx-4 shadow d-flex flex-column justify-content-center"
-        >
-            <img src="../assets/book.svg" class="icon mx-auto mt-auto" alt="" />
-            <p class="text-center fs-5">Book</p>
-        </div>
-        </a>
-        <a class="menuCard" href="{{ route('journals.index') }}">
-        <div
-            id="menu2"
-            class="menu mx-4 shadow d-flex flex-column justify-content-center"
-        >
-            <img src="../assets/journal.svg" class="icon mx-auto mt-auto" alt="" />
-            <p class="text-center fs-5">Journal</p>
-        </div>
-        </a>
-        <a class="menuCard" href="{{ route('articles.index') }}">
-        <div
-            id="menu3"
-            class="menu mx-4 shadow d-flex flex-column justify-content-center"
-        >
-            <img src="../assets/article.svg" class="icon mx-auto mt-auto" alt="" />
-            <p class="text-center fs-5">Article</p>
-        </div>
-        </a>
-        <a class="menuCard" href="{{ route('dashboard.index') }}">
-        <div
-            id="menu4"
-            class="menu mx-4 shadow d-flex flex-column justify-content-center"
-        >
-            <img src="../assets/user.svg" class="icon mx-auto mt-auto" alt="" />
-            <p class="text-center fs-5">Dashboard</p>
-        </div>
-        </a>
-    </div>
+<h1 id="pageTitle" class="fw-bold text-center">Journal Page</h1>
+<div
+    id="table-container"
+    class="d-flex flex-column justify-content-center mt-4 mx-auto p-4 shadow-sm text-center"
+>
+    <table class="table mx-auto">
+        <thead>
+        <tr>
+            <th scope="col" class="table-title">Judul</th>
+            <th scope="col" class="table-title">Penulis</th>
+            <th scope="col" class="table-title">Nama Jurnal</th>
+            <th scope="col" class="table-title">Volume Jurnal</th>
+            <th scope="col" class="table-title">Nomor Jurnal</th>
+            <th scope="col" class="table-title">Halaman</th>
+            <th scope="col" class="table-title">ISSN</th>
+            <th scope="col" class="table-title">Penerbit</th>
+            <th scope="col" class="table-title">Download</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach($journals as $journal)
+            <tr>
+                <td>{{ $journal->judul_artikel }}</td>
+                <td>{{ $journal->penulis }}</td>
+                <td>{{ $journal->nama_jurnal }}</td>
+                <td>{{ $journal->volume_jurnal }}</td>
+                <td>{{ $journal->nomor_jurnal }}</td>
+                <td>{{ $journal->halaman }}</td>
+                <td>{{ $journal->ISSN }}</td>
+                <td>{{ $journal->penerbit }}</td>
+                <td>
+                    <a href="/storage/{{ $journal->file_path }}" class="btn btn-warning me-2 text-light">
+                        <img src="../../assets/download.svg" alt="" srcset="">
+                    </a>
+                </td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
 </div>
+
 <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
@@ -198,4 +194,3 @@
 ></script>
 </body>
 </html>
-
